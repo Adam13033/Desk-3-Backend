@@ -1,6 +1,7 @@
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
 const User = require("../user/model");
+const ObjectID = require("mongodb").ObjectID;
 
 exports.hashPass = async (req, res, next) => {
   try {
@@ -57,6 +58,20 @@ exports.tokenCheck = async (req, res, next) => {
       next();
     } else {
       throw new Error("Invalid token");
+    }
+  } catch (error) {
+    console.log(error);
+    res.status(500).send({ err: error.message });
+  }
+};
+
+exports.addFavourites = async (req, res, next) => {
+  try {
+    req.user = await User.findOneAndUpdate({username: req.body.username}, {$push: {favourites: req.body.favourites}})
+    if (req.user) {
+      next();
+    } else {
+      throw new Error("Cannot find user");
     }
   } catch (error) {
     console.log(error);
