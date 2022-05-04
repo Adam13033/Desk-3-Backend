@@ -57,3 +57,17 @@ exports.deleteUser = async (req, res) => {
     res.status(500).send({ err: error.message });
   }
 };
+
+exports.addFavourites = async (req, res) => {
+  const {favourites} = req.body;
+  try {
+    await User.findOneAndUpdate(
+      { username: req.body.username},
+      { $push: {favourites: favourites}}
+    )
+    res.status(200).send({message: "Updated Favourites"})
+  } catch (error) {
+    console.log(error);
+    res.status(500).send({ err: error.message });
+  }
+};

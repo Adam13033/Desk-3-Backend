@@ -64,17 +64,3 @@ exports.tokenCheck = async (req, res, next) => {
     res.status(500).send({ err: error.message });
   }
 };
-
-exports.addFavourites = async (req, res, next) => {
-  try {
-    req.user = await User.findOneAndUpdate({username: req.body.username}, {$push: {favourites: req.body.favourites}})
-    if (req.user) {
-      next();
-    } else {
-      throw new Error("Cannot find user");
-    }
-  } catch (error) {
-    console.log(error);
-    res.status(500).send({ err: error.message });
-  }
-};
