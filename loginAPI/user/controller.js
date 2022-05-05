@@ -3,18 +3,25 @@ const User = require("./model");
 
 exports.addUser = async (req, res) => {
   try {
+    const {email, username, password, favourites} = req.body
+    const oldUser = await User.findOne(  {email:email}  )
+    console.log(req.body.email)
+    if(oldUser) {
+      return res.status(409).send("User Already Exists. Please Login");
+    }
     const newUser = await User.create(req.body);
-    const token = await jwt.sign({ _id: newUser._id }, process.env.SECRET_KEY);
+    const token = await jwt.sign({ _id: newUser._id }, process.env.SECRET);
     res.status(200).send({ user: newUser.username, token: token });
   } catch (error) {
-    console.log(error);
+    console.error(error);
     res.status(500).send({ err: error.message });
   }
+ 
 };
 
 exports.login = async (req, res) => {
   try {
-    const token = await jwt.sign({ _id: req.user._id }, process.env.SECRET_KEY);
+    const token = await jwt.sign({ _id: req.user._id }, process.env.SECRET);
     res.status(200).send({ user: req.user.username, token: token });
   } catch (error) {
     console.log(error);
@@ -61,7 +68,7 @@ exports.deleteUser = async (req, res) => {
 exports.addFavourites = async (req, res) => {
   const {favourites} = req.body;
   try {
-    await User.findOneAndUpdate(
+    await User.updateOne(
       { username: req.body.username},
       { $push: {favourites: favourites}}
     )

@@ -5,9 +5,9 @@ const userRouter = Router();
 
 userRouter.post("/user", hashPass, addUser);
 userRouter.post("/login", unHash, login);
-userRouter.get("/user", decrypt, login);
-userRouter.patch("/user", tokenCheck, hashPass, updateUser);
-userRouter.delete("/user/:username", tokenCheck, deleteUser);
+userRouter.get("/find", decrypt, login);
+userRouter.patch("/update",  hashPass, updateUser);
+userRouter.delete("/delete",  deleteUser);
 userRouter.put("/favourites", addFavourites);
 
 module.exports = userRouter;

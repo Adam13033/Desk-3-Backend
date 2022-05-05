@@ -18,5 +18,13 @@
     "jsonwebtoken": "^8.5.1",
     "mongodb": "^4.5.0",
     "mongoose": "^6.3.0"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Adam13033/Desk-3-Backend.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Adam13033/Desk-3-Backend/issues"
+  },
+  "homepage": "https://github.com/Adam13033/Desk-3-Backend#readme"
 }

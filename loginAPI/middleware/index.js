@@ -34,7 +34,7 @@ exports.unHash = async (req, res, next) => {
 exports.decrypt = async (req, res, next) => {
   try {
     const token = req.header("Authorization").replace("Bearer ", "");
-    const decodedToken = await jwt.verify(token, process.env.SECRET_KEY);
+    const decodedToken = await jwt.verify(token, process.env.SECRET);
     req.user = await User.findOne({ _id: decodedToken._id });
     if (req.user) {
       next();
@@ -47,20 +47,4 @@ exports.decrypt = async (req, res, next) => {
   }
 };
 
-exports.tokenCheck = async (req, res, next) => {
-  try {
-    const decodedToken = await jwt.verify(
-      req.header("Authorization").replace("Bearer", ""),
-      process.env.SECRET_KEY
-    );
-    req.user = await User.findOne({ _id: decodedToken._id });
-    if (req.user) {
-      next();
-    } else {
-      throw new Error("Invalid token");
-    }
-  } catch (error) {
-    console.log(error);
-    res.status(500).send({ err: error.message });
-  }
-};
+
