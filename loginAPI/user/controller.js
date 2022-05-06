@@ -16,7 +16,6 @@ exports.addUser = async (req, res) => {
     console.error(error);
     res.status(500).send({ err: error.message });
   }
- 
 };
 
 exports.login = async (req, res) => {
