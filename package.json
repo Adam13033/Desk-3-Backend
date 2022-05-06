@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js"
+    "start": "nodemon server.js"
   },
   "keywords": [],
   "author": "",
@@ -26,5 +26,8 @@
   "bugs": {
     "url": "https://github.com/Adam13033/Desk-3-Backend/issues"
   },
-  "homepage": "https://github.com/Adam13033/Desk-3-Backend#readme"
+  "homepage": "https://github.com/Adam13033/Desk-3-Backend#readme",
+  "devDependencies": {
+    "nodemon": "^2.0.16"
+  }
 }
